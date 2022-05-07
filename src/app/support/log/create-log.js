@@ -1,9 +1,7 @@
-import {ConsoleLog} from './console-log'
-
-export function createLog(options) {
-    const LogClass = options && 'class' in options ? options.class : ConsoleLog
+export function createLog() {
     return {
         install(app) {
+            const LogClass = app.config.globalProperties.$config.log.default
             app.config.globalProperties.$log = new LogClass
         },
     }

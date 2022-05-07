@@ -1,1 +1,2 @@
-export * from '@/config/app'
+export * from './app'
+export * from './log'
