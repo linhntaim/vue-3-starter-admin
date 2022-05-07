@@ -1,6 +1,3 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import {app} from '@/bootstrap/app'
 
-createApp(App).use(store).use(router).mount('#app')
+app.$log.info('app', 'created', app)
