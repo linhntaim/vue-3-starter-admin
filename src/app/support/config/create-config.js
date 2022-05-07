@@ -1,7 +1,9 @@
-export function createConfig(config) {
+import {Config} from '@/app/support/config/config'
+
+export function createConfig(configs) {
     return {
         install(app) {
-            app.config.globalProperties.$log = config
+            app.config.globalProperties.$config = new Config(configs)
         },
     }
 }
