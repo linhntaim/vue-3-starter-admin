@@ -1,4 +1,5 @@
 export const account = {
+    namespaced: true,
     state: () => ({
         account: null,
     }),

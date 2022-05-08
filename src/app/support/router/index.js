@@ -1,2 +1,2 @@
-export * from './middlewares'
+export * from './create-router'
 export * from './middleware'

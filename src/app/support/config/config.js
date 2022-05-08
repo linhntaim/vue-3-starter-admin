@@ -1,4 +1,4 @@
-import {dataGet} from '@/app/support/helpers'
+import {dataGet} from '../helpers'
 
 export class Config {
     constructor(configs) {

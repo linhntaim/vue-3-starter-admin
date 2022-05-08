@@ -1,3 +1,5 @@
+import {Str} from './str'
+
 export function take(value, callback = null) {
     callback && callback(value)
     return value
@@ -11,7 +13,7 @@ export function dataGet(data, key, def = null) {
     const keys = key.split('.')
     let k
     while ((k = keys.shift())) {
-        if (k in data) {
+        if (typeof data === 'object' && k in data) {
             data = data[k]
         }
         else {
@@ -19,5 +21,7 @@ export function dataGet(data, key, def = null) {
             break
         }
     }
-    return data ? data : def
+    return data == null ? def : data
 }
+
+export const str = new Str()

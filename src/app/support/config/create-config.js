@@ -1,4 +1,4 @@
-import {Config} from '@/app/support/config/config'
+import {Config} from './config'
 
 export function createConfig(configs) {
     return {
