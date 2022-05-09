@@ -1,6 +1,6 @@
 <template lang="pug">
 .internal-server-error
-    h1 500 - Internal Server Error
+    h1 503 - Service Unavailable
 </template>
 
 <script>
