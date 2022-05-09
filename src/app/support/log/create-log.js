@@ -1,13 +1,11 @@
-import {ConsoleLog} from '@/app/support/log/console-log'
-import {modify} from '@/app/support/helpers'
+import {LogManager} from './log-manager'
 
-export function createLog() {
+export function createLog(extend = {}) {
     return {
         install(app) {
-            app.config.globalProperties.$log = modify(
-                app.config.globalProperties.$config?.get('log.default', ConsoleLog),
-                LogClass => new LogClass,
-            )
+            const logManager = new LogManager(app).extend(extend)
+            app.config.globalProperties.$logging = logManager
+            app.config.globalProperties.$log = logManager.driver()
         },
     }
 }

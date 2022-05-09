@@ -1,12 +1,16 @@
 export class Middlewares {
-    constructor(to) {
+    constructor() {
+        this.middlewares = []
+    }
+
+    collect(to) {
         this.middlewares = []
         to.matched.forEach(route => {
             if ('middleware' in route.meta) {
                 this.middlewares.push(...route.meta.middleware)
             }
         })
-
+        return this
     }
 
     before(method, to, from, next) {
