@@ -7,7 +7,7 @@
 import {app} from '@/bootstrap/app'
 
 export default {
-    name: 'NotFoundView',
+    name: 'NotFound',
     beforeRouteEnter() { // cannot access `this`
         app.$log.info('page', 'not-found.beforeRouteEnter')
     },
