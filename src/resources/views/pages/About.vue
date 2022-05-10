@@ -7,7 +7,8 @@
 import {app} from '@/bootstrap/app'
 
 export default {
-    name: 'AboutView',
+    // eslint-disable-next-line
+    name: 'About',
     beforeRouteEnter() { // cannot access `this`
         app.$log.info('page', 'about.beforeRouteEnter')
     },

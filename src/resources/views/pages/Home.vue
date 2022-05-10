@@ -10,7 +10,8 @@ import HelloWorld from '@/resources/views/components/HelloWorld.vue'
 import {app} from '@/bootstrap/app'
 
 export default {
-    name: 'HomeView',
+    // eslint-disable-next-line
+    name: 'Home',
     components: {
         HelloWorld,
     },
