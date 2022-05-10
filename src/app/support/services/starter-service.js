@@ -30,48 +30,56 @@ export class StarterService extends Service {
         return this
     }
 
-    wrapError(callback) {
-        this.wrapErrorCallback = callback
-        return this
-    }
-
     always(callback) {
         this.alwaysCallback = callback
         return this
     }
 
-    responseThen(requested) {
+    wrapError(callback) {
+        this.wrapErrorCallback = callback
+        return this
+    }
+
+    responseThen(requested, doneCallback = null, errorCallback = null, alwaysCallback = null, wrapErrorCallback = null) {
         return requested
             .then(response => {
                 if (!response.data._status) {
                     throw response
                 }
                 const data = response.data._data
-                this.doneCallback && this.doneCallback(data)
+                doneCallback && doneCallback(data)
                 return data
             })
             .catch(error => {
                 if (!(error instanceof AxiosError)) {
                     error = new AxiosError('Server Error', 'ERR_SERVER', error.config, error.request, error)
                 }
-                error = this.wrapErrorCallback ? this.wrapErrorCallback(error) : new StarterServiceError(error)
-                this.errorCallback && this.errorCallback(error)
+                error = wrapErrorCallback ? wrapErrorCallback(error) : new StarterServiceError(error)
+                errorCallback && errorCallback(error)
                 return error
             })
             .then(response => {
-                this.alwaysCallback && this.alwaysCallback(response)
-
-                return take(response, () => {
-                    this.doneCallback = null
-                    this.errorCallback = null
-                    this.wrapErrorCallback = null
-                    this.alwaysCallback = null
-                })
+                alwaysCallback && alwaysCallback(response)
+                return response
             })
     }
 
     response(requested) {
-        return this.responseThen(requested)
+        return take(
+            this.responseThen(
+                requested,
+                this.doneCallback,
+                this.errorCallback,
+                this.alwaysCallback,
+                this.wrapErrorCallback,
+            ),
+            () => {
+                this.doneCallback = null
+                this.errorCallback = null
+                this.alwaysCallback = null
+                this.wrapErrorCallback = null
+            },
+        )
     }
 
     get(url, params = {}) {
@@ -79,6 +87,12 @@ export class StarterService extends Service {
             this.request.get(url, {
                 params,
             }),
+        )
+    }
+
+    post(url, params = {}) {
+        return this.response(
+            this.request.post(url, params),
         )
     }
 }

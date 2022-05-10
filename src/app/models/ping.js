@@ -1,6 +1,5 @@
 import {app} from '@/bootstrap/app'
-import {PingService} from '@/app/services/ping-service'
-import {ServiceError} from '@/app/support/services'
+import {PingService, ServiceError} from '@/app/support/services'
 
 export const ping = {
     namespaced: true,
@@ -19,7 +18,7 @@ export const ping = {
             if (context.getters.expired) {
                 context.commit(
                     'setAvailable',
-                    (await app.$service(PingService).ping()) instanceof ServiceError,
+                    !((await app.$service(PingService).ping()) instanceof ServiceError),
                 )
             }
             return context.getters.available

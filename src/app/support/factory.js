@@ -8,7 +8,7 @@ export class Factory extends Maker {
     }
 
     make(MakerClass, factory = null) {
-        const classname = MakerClass.constructor.name
+        const classname = MakerClass.name
         if (!(classname in this.registered)) {
             this.registered[classname] = factory ? factory : (app) => new MakerClass(app)
         }
