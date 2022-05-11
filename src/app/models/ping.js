@@ -11,6 +11,19 @@ export const ping = {
         setAvailable(state, available) {
             state.available = available
             state.expiredAt = new Date().getTime() + 60 * 1000
+
+            app.$cache.set('ping', {
+                available: state.available,
+                expiredAt: state.expiredAt,
+            })
+        },
+        setFromCache(state) {
+            const ping = app.$cache.get('ping')
+            app.$log.info('model', 'ping.setFromCache', ping)
+            if (ping) {
+                state.available = ping.available
+                state.expiredAt = ping.expiredAt
+            }
         },
     },
     actions: {

@@ -39,9 +39,9 @@ export class Storage
         return this
     }
 
-    get(key) {
+    get(key, def = null) {
         if (!this.has(key)) {
-            return null
+            return def
         }
 
         const got = this.getRaw(key)

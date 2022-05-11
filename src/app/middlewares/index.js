@@ -1,4 +1,4 @@
-import {Cookies} from './cookies'
+import {Fresh} from './fresh'
 import {Ping} from './ping'
 
-export const middlewares = [Ping, Cookies]
+export const middlewares = [Fresh, Ping]
