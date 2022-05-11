@@ -1,5 +1,5 @@
-import * as providers from '../app/providers'
 import {createApp} from 'vue'
+import {providers} from '@/app/providers'
 import {take} from '@/app/support/helpers'
 import App from '@/resources/views/App'
 
