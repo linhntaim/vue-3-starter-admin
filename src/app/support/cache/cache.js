@@ -8,4 +8,9 @@ export class Cache
     get(key, def = null) {
         return def
     }
+
+    // eslint-disable-next-line no-unused-vars
+    remove(key) {
+        return this
+    }
 }

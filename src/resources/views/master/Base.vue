@@ -1,6 +1,6 @@
 <template lang="pug">
 nav
-    router-link(:to="{name: 'home'}") Home
+    router-link(:to="{name: 'root'}") Home
     | &nbsp;|&nbsp;
     router-link(:to="{name: 'about'}") About
 router-view
