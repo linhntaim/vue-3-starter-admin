@@ -1,6 +1,6 @@
 import {middlewares} from '@/app/middlewares'
 import Base from '@/resources/views/master/Base'
-import BaseBlank from '@/resources/views/master/BaseBlank'
+import BaseError from '@/resources/views/master/BaseError'
 
 export const routes = [
     {
@@ -12,24 +12,29 @@ export const routes = [
         children: [
             {
                 path: 'error',
-                component: BaseBlank,
+                component: BaseError,
                 children: [
                     {
                         path: 'connection-lost',
                         name: 'connection_lost',
-                        component: () => import('@/resources/views/errors/ConnectionLost.vue'),
+                        component: () => import('@/resources/views/errors/ConnectionLost'),
                     },
                     {
                         path: '404',
                         name: 'not_found',
-                        component: () => import('@/resources/views/errors/NotFound.vue'),
+                        component: () => import('@/resources/views/errors/NotFound'),
                     },
                 ],
+            },
+            {
+                path: 'clear-site-data',
+                name: 'clear_site_data',
+                component: () => import('@/resources/views/pages/ClearSiteData'),
             },
             //
             {
                 path: '/',
-                name: 'home',
+                name: 'root',
                 component: () => import('@/resources/views/pages/Home.vue'),
             },
             {
@@ -40,7 +45,7 @@ export const routes = [
             //
             {
                 path: ':pathMatch(.*)*',
-                component: () => import('@/resources/views/errors/NotFound.vue'),
+                component: () => import('@/resources/views/errors/NotFound'),
             },
         ],
     },

@@ -20,4 +20,9 @@ export class StorageCache extends Cache
     get(key, def = null) {
         return this.storage.get(key, def)
     }
+
+    remove(key) {
+        this.storage.remove(key)
+        return this
+    }
 }
