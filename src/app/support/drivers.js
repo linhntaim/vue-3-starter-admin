@@ -1,11 +1,13 @@
 import {modify, str} from './helpers'
 
-export class Drivers {
+export class Drivers
+{
     constructor(app) {
         this.app = app
         this.config = app.config.globalProperties.$config
         this.drivers = {}
         this.extended = {}
+        this.withs = {}
     }
 
     getDefaultDriver() {
@@ -24,13 +26,31 @@ export class Drivers {
         return this
     }
 
+    with(driver, callback, key = 'default') {
+        if (!(driver in this.withs)) {
+            this.withs[driver] = {key: callback}
+        }
+        else {
+            this.withs[driver][key] = callback
+        }
+    }
+
     driver(driver = null) {
         if (driver == null) {
             driver = this.getDefaultDriver()
         }
-        return driver in this.drivers
-            ? this.drivers[driver]
-            : (this.drivers[driver] = this.createDriver(driver))
+        return modify(
+            driver in this.drivers
+                ? this.drivers[driver]
+                : (this.drivers[driver] = this.createDriver(driver)),
+            driverInstance => {
+                const withs = driver in this.withs ? this.withs[driver] : {}
+                Object.keys(withs).forEach(key => {
+                    driverInstance = withs[key](driverInstance)
+                })
+                return driverInstance
+            },
+        )
     }
 
     createDriver(driver) {

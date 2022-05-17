@@ -1,5 +1,6 @@
 import {Middleware} from '@/app/support/router'
 import {app} from '@/bootstrap/app'
+import {locale} from '@/config'
 
 let fresh = true
 
@@ -9,9 +10,12 @@ export class Fresh extends Middleware
         if (fresh) {
             this.restoreFromCache()
             this.restoreFromCookie()
+            app.$setLocale(locale.default).then(() => next())
         }
-        fresh = false
-        next()
+        else {
+            fresh = false
+            next()
+        }
     }
 
     restoreFromCache() {
