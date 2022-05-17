@@ -17,8 +17,8 @@ export const ping = {
                 expiredAt: state.expiredAt,
             })
         },
-        setFromCache(state) {
-            const ping = app.$cache.get('ping')
+        async setFromCache(state) {
+            const ping = await app.$cache.get('ping')
             app.$log.info('model', 'ping.setFromCache', ping)
             if (ping) {
                 state.available = ping.available

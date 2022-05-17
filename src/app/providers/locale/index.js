@@ -9,6 +9,7 @@ export const i18n = localeManager.createI18Provider({
 export const locale = {
     install(app) {
         app.config.globalProperties.$setLocale = locale => {
+            app.config.globalProperties.$log.info('locale', 'set', locale)
             return localeManager.setLocale(locale)
                 .then(() => {
                     document.querySelector('html').setAttribute('lang', locale)
@@ -16,6 +17,7 @@ export const locale = {
                         axios.defaults.headers.common['Accept-Language'] = locale
                         return axios
                     }, 'locale')
+                    app.config.globalProperties.$cookie.put('locale', locale)
                     return locale
                 })
         }

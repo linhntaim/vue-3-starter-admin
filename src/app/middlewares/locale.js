@@ -2,15 +2,14 @@ import {app} from '@/bootstrap/app'
 
 export class Locale
 {
-    beforeEach(to, from, next) {
+    async beforeEach(to, from, next) {
+        app.$log.info('middleware', 'locale.beforeEach')
         const locale = 'locale' in to.query
             ? to.query.locale
             : ('lang' in to.query ? to.query.lang : null)
         if (locale && app.$config.locale.supported.includes(locale)) {
-            app.$setLocale(locale).then(() => next())
+            await app.$setLocale(locale)
         }
-        else {
-            next()
-        }
+        next()
     }
 }
