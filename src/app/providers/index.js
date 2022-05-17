@@ -4,7 +4,7 @@ import {service} from './service'
 import {encryption} from './encryption'
 import {storage} from './storage'
 import {cache} from './cache'
-import {i18n} from './i18n'
+import {i18n, locale} from './locale'
 import {store} from './store'
 import {router} from './router'
 
@@ -17,6 +17,7 @@ export const providers = {
     storage,
     cache,
     i18n,
+    locale,
     store,
     router,
 }

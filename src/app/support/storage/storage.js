@@ -1,23 +1,36 @@
 export class Storage
 {
-    constructor(encryptor) {
+    constructor(encryptor, options = {}) {
         this.encryptor = encryptor
+        if (options.encrypt) {
+            options.flatten = true
+        }
+        this.options = options
     }
 
-    put(key, value, options = {}) {
-        return this.putRaw(key, this.toValue(value, options), options)
+    async put(key, value, options = {}) {
+        return this.putRaw(key, await this.toRawValue(this.toValue(value, options), options), options)
     }
 
     // eslint-disable-next-line no-unused-vars
-    putRaw(key, value, options = {}) {
+    putRaw(key, rawValue, options = {}) {
         return this
     }
 
+    // eslint-disable-next-line no-unused-vars
     toValue(value, options = {}) {
-        if (options.encrypt) {
-            value = this.encryptor.encrypt(JSON.stringify(value))
-        }
         return value
+    }
+
+    async toRawValue(value, options = {}) {
+        let raw = {value, options}
+        if (this.options.flatten) {
+            raw = JSON.stringify(raw)
+        }
+        if (this.options.encrypt) {
+            raw = await this.encryptor.encrypt(raw)
+        }
+        return raw
     }
 
     flash(key, value, options = {}) {
@@ -30,21 +43,22 @@ export class Storage
         return false
     }
 
-    keep(key) {
+    async keep(key) {
         if (this.has(key)) {
-            const got = this.fromValue(this.getRaw(key))
+            const got = await this.fromRawValue(this.getRaw(key))
+            const value = this.fromValue(key, got.value, got.options)
             got.options.keep = true
-            this.put(key, got.value, got.options)
+            await this.put(key, value, got.options)
         }
         return this
     }
 
-    get(key, def = null) {
+    async get(key, def = null) {
         if (!this.has(key)) {
             return def
         }
 
-        const got = this.getRaw(key)
+        const got = await this.fromRawValue(key, this.getRaw(key))
         return this.fromValue(key, got.value, got.options)
     }
 
@@ -63,10 +77,17 @@ export class Storage
                 this.remove(key)
             }
         }
-        if (options.encrypt) {
-            value = JSON.parse(this.encryptor.decrypt(value))
-        }
         return value
+    }
+
+    async fromRawValue(key, rawValue) {
+        if (this.options.encrypt) {
+            rawValue = await this.encryptor.decrypt(rawValue)
+        }
+        if (this.options.flatten) {
+            rawValue = JSON.parse(rawValue)
+        }
+        return rawValue
     }
 
     // eslint-disable-next-line no-unused-vars
