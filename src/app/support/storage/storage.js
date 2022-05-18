@@ -1,7 +1,13 @@
-export class Storage
+import {Maker} from '../maker'
+
+export class Storage extends Maker
 {
-    constructor(encryptor, options = {}) {
-        this.encryptor = encryptor
+    constructor(app, options = {}) {
+        super(app)
+
+        this.encryptor = options.encryptor
+            ? this.app.config.globalProperties.$encryption.driver(options.encryptor )
+            : this.app.config.globalProperties.$encryptor
         if (options.encrypt) {
             options.flatten = true
         }

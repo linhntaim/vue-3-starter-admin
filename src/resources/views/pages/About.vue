@@ -4,10 +4,11 @@
     p
         small Say hello to&nbsp;
         input(v-model="world" type="text")
-        small &nbsp;in&nbsp;
-        select(v-model="locale")
-            option(v-for="value in locales" :key="value" :value="value")
-                | {{ value }}
+        template(v-if="locales.length > 1")
+            small &nbsp;in&nbsp;
+            select(v-model="locale")
+                option(v-for="value in locales" :key="value" :value="value")
+                    | {{ value }}
     p {{ $t('hello', {world}) }}
 </template>
 

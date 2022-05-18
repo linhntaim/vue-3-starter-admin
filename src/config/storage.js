@@ -3,7 +3,7 @@ export const storage = {
     drivers: {
         local: {},
         cookie: {
-            encrypt: true,
+            // encrypt: true,
         },
     },
 }

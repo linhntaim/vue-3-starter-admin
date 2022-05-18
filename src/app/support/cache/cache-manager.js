@@ -8,6 +8,10 @@ export class CacheManager extends Drivers
     }
 
     createDefaultDriver() {
-        return new StorageCache(this.app.config.globalProperties.$storage)
+        return new StorageCache(
+            this.app.config.globalProperties.$storageManager.driver(
+                this.config?.get('cache.drivers.storage.driver', 'local'),
+            ),
+        )
     }
 }

@@ -1,5 +1,5 @@
 export const locale = {
-    default: 'vi',
+    default: 'en',
     fallback: 'en',
 
     supported: ['en', 'vi'],
