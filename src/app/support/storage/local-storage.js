@@ -5,7 +5,6 @@ export class LocalStorage extends Storage
     constructor(encryptor, options = {}) {
         super(encryptor, options)
 
-        this.options.flatten = true
         this.handler = window.localStorage
     }
 

@@ -1,4 +1,6 @@
-export class Cache
+import {Driver} from '../driver'
+
+export class Cache extends Driver
 {
     // eslint-disable-next-line no-unused-vars
     set(key, data, expiresIn = null) {

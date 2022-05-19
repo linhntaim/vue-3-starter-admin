@@ -1,8 +1,8 @@
-import {LocaleManager} from './locale-manager'
+import {LocaleHandler} from './locale-handler'
 import {createI18n} from 'vue-i18n'
 import {take} from '../helpers'
 
-export class I18LocaleManager extends LocaleManager
+export class I18LocaleHandler extends LocaleHandler
 {
     createI18Provider(options = {}) {
         options = Object.assign({

@@ -1,2 +1,2 @@
-export * from './locale-manager'
-export * from './i18-locale-manager'
+export * from './locale-handler'
+export * from './i18-locale-handler'

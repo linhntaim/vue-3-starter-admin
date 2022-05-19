@@ -1,8 +1,11 @@
 export const storage = {
     default: 'local',
     drivers: {
-        local: {},
+        local: {
+            flatten: true,
+        },
         cookie: {
+            flatten: true,
             // encrypt: true,
         },
     },

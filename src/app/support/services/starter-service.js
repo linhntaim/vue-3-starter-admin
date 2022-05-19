@@ -16,7 +16,7 @@ export class StarterService extends Service {
         this.alwaysCallback = null
     }
 
-    driver() {
+    requestDriver() {
         return 'starter'
     }
 

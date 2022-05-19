@@ -2,16 +2,26 @@ import {modify, str} from './helpers'
 
 export class Drivers
 {
-    constructor(app) {
+    constructor(app, configKey, defaultDriver = null) {
         this.app = app
         this.config = app.config.globalProperties.$config
+        this.configKey = configKey
         this.drivers = {}
         this.extended = {}
         this.withs = {}
+        this.defaultDriver = defaultDriver
+    }
+
+    getConfig(key, def = null) {
+        return this.config?.get(`${this.configKey}.${key}`, def) || def
+    }
+
+    options(driver) {
+        return this.getConfig(`drivers.${driver}`, {})
     }
 
     getDefaultDriver() {
-        return 'default'
+        return this.getConfig('default', this.defaultDriver)
     }
 
     extend(driver, callback) {

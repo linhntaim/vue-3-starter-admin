@@ -1,4 +1,4 @@
-export class LocaleManager
+export class LocaleHandler
 {
     constructor() {
         this.loadedLocales = []

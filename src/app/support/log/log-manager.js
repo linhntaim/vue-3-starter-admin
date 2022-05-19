@@ -1,12 +1,13 @@
 import {Drivers} from '../drivers'
 import {ConsoleLog} from './console-log'
 
-export class LogManager extends Drivers {
-    getDefaultDriver() {
-        return this.config?.get('log.default', 'console')
+export class LogManager extends Drivers
+{
+    constructor(app) {
+        super(app, 'log', 'console')
     }
 
-    createDefaultDriver() {
-        return new ConsoleLog(this.config?.get('log.drivers.console', {}))
+    createConsole() {
+        return new ConsoleLog(this.options('console'))
     }
 }

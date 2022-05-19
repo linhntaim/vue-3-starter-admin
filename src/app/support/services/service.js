@@ -4,10 +4,10 @@ export class Service extends Maker {
     constructor(app) {
         super(app)
 
-        this.request = this.app.config.globalProperties.$request.driver(this.driver())
+        this.request = this.app.config.globalProperties.$request.driver(this.requestDriver())
     }
 
-    driver() {
+    requestDriver() {
         return null
     }
 

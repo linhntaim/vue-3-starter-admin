@@ -1,10 +1,19 @@
-export class Log {
-    constructor(options = {}) {
-        this.options = options
+import {Driver} from '../driver'
+
+export class Log extends Driver
+{
+    // eslint-disable-next-line no-unused-vars
+    info(namespace, message, ...data) {
+
     }
 
     // eslint-disable-next-line no-unused-vars
-    info(namespace, message, ...data) {
+    error(namespace, message, ...data) {
+
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    warn(namespace, message, ...data) {
 
     }
 }

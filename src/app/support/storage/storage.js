@@ -1,17 +1,11 @@
-import {Maker} from '../maker'
+import {Driver} from '../driver'
 
-export class Storage extends Maker
+export class Storage extends Driver
 {
-    constructor(app, options = {}) {
-        super(app)
+    constructor(encryptor, options = {}) {
+        super(options)
 
-        this.encryptor = options.encryptor
-            ? this.app.config.globalProperties.$encryption.driver(options.encryptor )
-            : this.app.config.globalProperties.$encryptor
-        if (options.encrypt) {
-            options.flatten = true
-        }
-        this.options = options
+        this.encryptor = encryptor
     }
 
     async put(key, value, options = {}) {

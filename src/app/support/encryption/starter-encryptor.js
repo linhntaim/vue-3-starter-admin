@@ -3,8 +3,8 @@ import {EncryptService, ServiceError} from '@/app/support/services'
 
 export class StarterEncryptor extends Encryptor
 {
-    constructor(app) {
-        super()
+    constructor(app, options = {}) {
+        super(options)
 
         this.app = app
     }

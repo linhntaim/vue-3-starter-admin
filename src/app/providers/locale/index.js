@@ -1,7 +1,7 @@
-import {I18LocaleManager} from '@/app/support/locale'
+import {I18LocaleHandler} from '@/app/support/locale'
 import {locale as config} from '@/config'
 
-const localeManager = new I18LocaleManager()
+const localeManager = new I18LocaleHandler()
 export const i18n = localeManager.createI18Provider({
     locale: config.default,
     fallbackLocale: config.fallback,
