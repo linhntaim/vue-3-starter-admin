@@ -7,7 +7,7 @@ export class Locale
         const locale = 'locale' in to.query
             ? to.query.locale
             : ('lang' in to.query ? to.query.lang : null)
-        if (locale && app.$config.locale.supported.includes(locale)) {
+        if (locale) {
             await app.$setLocale(locale)
         }
         next()

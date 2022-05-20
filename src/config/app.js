@@ -1,6 +1,6 @@
 export const app = {
+    id: process.env.VUE_APP_ID,
     name: process.env.VUE_APP_NAME,
-    client: process.env.VUE_APP_CLIENT,
     static: !('VUE_APP_SERVICE_URL' in process.env),
 
     ping: {

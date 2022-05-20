@@ -1,2 +1,2 @@
-export * from './ping'
+export * from './prerequisite'
 export * from './account'

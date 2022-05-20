@@ -22,7 +22,7 @@ export default {
         return {
             world: 'World',
             locale: this.$i18n.locale,
-            locales: this.$config.locale.supported,
+            locales: this.$config.localization.locale.supported,
         }
     },
     watch: {

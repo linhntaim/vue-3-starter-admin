@@ -1,8 +1,9 @@
 export class LocaleHandler
 {
-    constructor() {
-        this.loadedLocales = []
+    constructor(supportedLocales = []) {
         this.locale = null
+        this.loadedLocales = []
+        this.supportedLocales = supportedLocales
     }
 
     applyLocale(locale) {
@@ -10,6 +11,9 @@ export class LocaleHandler
     }
 
     setLocale(locale) {
+        if (!this.supportedLocales.includes(locale)) {
+            return Promise.resolve(this.locale)
+        }
         if (this.locale === locale) {
             return Promise.resolve(locale)
         }

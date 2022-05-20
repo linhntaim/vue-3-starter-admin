@@ -16,6 +16,13 @@ export const services = {
                     }
                     return null
                 })(),
+                headers: (() => {
+                    const headers = {}
+                    if (process.env.VUE_APP_SERVICE_CLIENT) {
+                        headers['X-Client'] = process.env.VUE_APP_SERVICE_CLIENT
+                    }
+                    return headers
+                })(),
             },
         },
     },

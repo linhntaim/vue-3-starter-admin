@@ -1,5 +1,15 @@
 import {Str} from './str'
 
+export function time() {
+    return new Date().getTime()
+}
+
+export function only(data, keys) {
+    const d = {}
+    keys.forEach(key => key in data && (d[key] = data[key]))
+    return d
+}
+
 export function take(value, callback = null) {
     callback && callback(value)
     return value
