@@ -40,7 +40,9 @@ export class Fresh extends Middleware
 
     async restoreFromCookie() {
         app.$log.info('middleware', 'fresh.restoreFromCookie')
-        const defaultLocale = await app.$cookie.get('locale', localization.default)
-        await app.$setLocale(defaultLocale)
+        // locale
+        await app.$setLocale(await app.$cookie.get('locale', localization.locale.default))
+        // account
+        await app.$store.dispatch('account/restoreFromCookie')
     }
 }

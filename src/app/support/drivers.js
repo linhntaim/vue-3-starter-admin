@@ -45,6 +45,12 @@ export class Drivers
         }
     }
 
+    without(driver, key = 'default') {
+        if (driver in this.withs) {
+            delete this.withs[driver][key]
+        }
+    }
+
     driver(driver = null) {
         if (driver == null) {
             driver = this.getDefaultDriver()

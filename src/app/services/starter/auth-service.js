@@ -1,0 +1,16 @@
+import {StarterService} from '@/app/support/services'
+
+export class AuthService extends StarterService
+{
+    sanctumLogin(params) {
+        return this.post('auth/sanctum/login', params)
+    }
+
+    sanctumLogout() {
+        return this.post('auth/sanctum/logout')
+    }
+
+    register(params) {
+        return this.post('auth/register', params)
+    }
+}

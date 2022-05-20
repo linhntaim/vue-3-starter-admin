@@ -1,6 +1,7 @@
 import {I18LocaleHandler} from '@/app/support/settings'
 import {localization as config} from '@/config'
 import {Settings} from '@/app/support/settings/settings'
+import {str} from '@/app/support/helpers'
 
 const localeHandler = new I18LocaleHandler(config.locale.supported)
 const settings = new Settings()
@@ -19,7 +20,7 @@ export const localization = {
                     app.config.globalProperties.$request.with('starter', axios => {
                         axios.defaults.headers.common['Accept-Language'] = locale
                         return axios
-                    }, 'locale')
+                    }, 'header.accept-language')
                     await app.config.globalProperties.$cookie.put('locale', locale)
                     app.config.globalProperties.$log.info('locale', 'applied', locale)
                 }
@@ -30,9 +31,13 @@ export const localization = {
             .setCommonApply((settings, changes) => {
                 if (Object.keys(changes).some(key => changes[key])) {
                     app.config.globalProperties.$request.with('starter', axios => {
-                        axios.defaults.headers.common['X-Settings'] = JSON.stringify(settings)
+                        axios.defaults.headers.common['X-Settings'] = (() => {
+                            const values = {}
+                            Object.keys(settings).forEach(key => settings[key] && (values[str.snake(key)] = settings[key]))
+                            return JSON.stringify(values)
+                        })()
                         return axios
-                    }, 'settings')
+                    }, 'header.x-settings')
                     app.config.globalProperties.$log.info('settings', 'applied', settings)
                 }
                 else {

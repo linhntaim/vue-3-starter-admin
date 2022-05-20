@@ -1,6 +1,6 @@
 import {app} from '@/bootstrap/app'
 import {only} from '@/app/support/helpers'
-import {PrerequisiteService} from '@/app/services/prerequisite-service'
+import {PrerequisiteService} from '@/app/services/starter/prerequisite-service'
 
 export const prerequisite = {
     namespaced: true,

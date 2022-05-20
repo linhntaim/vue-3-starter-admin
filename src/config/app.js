@@ -8,8 +8,17 @@ export const app = {
     },
 
     routes: {
+        root: {
+            name: 'root',
+        },
         connection_lost: {
             name: 'connection_lost',
+        },
+        redirect_if_unauthenticated: {
+            name: 'unauthenticated',
+        },
+        redirect_if_authenticated: {
+            name: 'root',
         },
     },
 }
