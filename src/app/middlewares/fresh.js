@@ -23,6 +23,7 @@ export class Fresh extends Middleware
             const data = await app.$store.dispatch('prerequisite/require', ['server'])
             app.$log.info('middleware', 'fresh.restoreFromServer', data)
             if (data instanceof ServiceError) {
+                app.$start.reset()
                 const connectionLostRoute = app.$config.app.routes.connection_lost
                 if (to.name !== connectionLostRoute.name) {
                     next(connectionLostRoute)

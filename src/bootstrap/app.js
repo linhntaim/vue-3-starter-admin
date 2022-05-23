@@ -17,6 +17,9 @@ export const vueApp = createApp(App).use({
                 ++this.fresh
                 this.freshStart = time()
             },
+            reset() {
+                this.fresh = 0
+            },
         }
     },
 })

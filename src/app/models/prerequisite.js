@@ -1,6 +1,7 @@
 import {app} from '@/bootstrap/app'
 import {only} from '@/app/support/helpers'
 import {PrerequisiteService} from '@/app/services/starter/prerequisite-service'
+import {StarterServiceError} from '@/app/support/services'
 
 export const prerequisite = {
     namespaced: true,
@@ -22,9 +23,12 @@ export const prerequisite = {
                 name => !(name in context.state.metadata) && notExisted.push(name),
             )
             if (notExisted.length) {
-                await app.$service(PrerequisiteService)
+                const data = await app.$service(PrerequisiteService)
                     .done(data => notExisted.forEach(name => context.commit('setData', {name, data: data[name]})))
                     .require(notExisted)
+                if (data instanceof StarterServiceError) {
+                    return Promise.resolve(data)
+                }
             }
             return Promise.resolve(only(context.state.metadata, names))
         },
