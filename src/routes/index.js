@@ -79,6 +79,22 @@ export const routes = [
                             },
                         ],
                     },
+                    {
+                        path: 'forgot-password',
+                        component: () => import('@/resources/views/pages/auth/forgot-password/Base'),
+                        children: [
+                            {
+                                path: '',
+                                name: 'forgot_password',
+                                component: () => import('@/resources/views/pages/auth/forgot-password/Index'),
+                            },
+                            {
+                                path: 'success',
+                                name: 'forgot_password_success',
+                                component: () => import('@/resources/views/pages/auth/forgot-password/Success'),
+                            },
+                        ],
+                    },
                 ],
             },
             {

@@ -13,6 +13,8 @@ nav
         router-link(:to="{name: 'login'}") Login
         | &nbsp;|&nbsp;
         router-link(:to="{name: 'register'}") Register
+        | &nbsp;|&nbsp;
+        router-link(:to="{name: 'forgot_password'}") Forgot password
 router-view
 </template>
 

@@ -9,13 +9,13 @@ export default {
     // eslint-disable-next-line
     name: 'Base',
     beforeUnmount() {
-        this.registerSetProgressing(false)
-        this.registerReset()
+        this.forgotPasswordSetProgressing(false)
+        this.forgotPasswordReset()
     },
     methods: {
         ...mapMutations({
-            registerSetProgressing: 'register/setProgressing',
-            registerReset: 'register/reset',
+            forgotPasswordSetProgressing: 'forgotPassword/setProgressing',
+            forgotPasswordReset: 'forgotPassword/reset',
         }),
     },
 }

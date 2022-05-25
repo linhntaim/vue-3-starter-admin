@@ -13,4 +13,8 @@ export class AuthService extends StarterService
     register(params) {
         return this.post('auth/register', params)
     }
+
+    forgotPassword(params) {
+        return this.post('auth/forgot-password', params)
+    }
 }
