@@ -1,3 +1,3 @@
-import {createCache} from '@/app/support/cache/create-cache'
+import {createCache} from '@/app/support/cache'
 
 export const cache = createCache()

@@ -23,13 +23,13 @@ export const register = {
         },
     },
     actions: {
-        register(context) {
-            return app.$service(AuthService).register({
+        register(context, params = {}) {
+            return app.$service(AuthService).register(Object.assign({
                 name: context.state.name,
                 email: context.state.email,
                 password: context.state.password,
                 password_confirmation: context.state.passwordConfirmation,
-            })
+            }, params))
         },
     },
     getters: {

@@ -1,17 +1,7 @@
 <template lang="pug">
-.register
-    h1 Register
+.reset-password
+    h1 Reset Password
     form(@submit.prevent="onSubmit")
-        div
-            input(v-model="name" type="text" name="name" placeholder="Name" required)
-        template(v-if="error.validation.name")
-            div(v-for="message in error.validation.name")
-                small {{ message }}
-        div
-            input(v-model="email" type="email" name="email" placeholder="Email" required)
-        template(v-if="error.validation.email")
-            div(v-for="message in error.validation.email")
-                small {{ message }}
         div
             input(v-model="password" type="password" name="password" placeholder="Password" required)
         template(v-if="error.validation.password")
@@ -43,59 +33,62 @@ export default {
     },
     computed: {
         ...mapGetters({
-            registerProgressing: 'register/progressing',
+            resetPasswordProgressing: 'resetPassword/progressing',
         }),
-        name: {
+        token: {
             get() {
-                return this.$store.state.register.name
+                return this.$store.state.resetPassword.token
             },
             set(value) {
-                this.$store.state.register.name = value
+                this.$store.state.resetPassword.token = value
             },
         },
         email: {
             get() {
-                return this.$store.state.register.email
+                return this.$store.state.resetPassword.email
             },
             set(value) {
-                this.$store.state.register.email = value
+                this.$store.state.resetPassword.email = value
             },
         },
         password: {
             get() {
-                return this.$store.state.register.password
+                return this.$store.state.resetPassword.password
             },
             set(value) {
-                this.$store.state.register.password = value
+                this.$store.state.resetPassword.password = value
             },
         },
         passwordConfirmation: {
             get() {
-                return this.$store.state.register.passwordConfirmation
+                return this.$store.state.resetPassword.passwordConfirmation
             },
             set(value) {
-                this.$store.state.register.passwordConfirmation = value
+                this.$store.state.resetPassword.passwordConfirmation = value
             },
         },
     },
     created() {
-        if (!this.registerProgressing) {
-            this.registerReset()
+        if (!this.resetPasswordProgressing) {
+            this.resetPasswordReset()
+        }
+
+        this.token = this.$route.params.token
+        if ('email' in this.$route.query) {
+            this.email = this.$route.query.email
         }
     },
     methods: {
         ...mapActions({
-            register: 'register/register',
+            resetPassword: 'resetPassword/resetPassword',
         }),
         ...mapMutations({
-            registerSetProgressing: 'register/setProgressing',
-            registerReset: 'register/reset',
+            resetPasswordSetProgressing: 'resetPassword/setProgressing',
+            resetPasswordReset: 'resetPassword/reset',
         }),
         onSubmit() {
             this.loading._ = true
-            this.register({
-                login_url: this.$url.route({name: 'login'}),
-            }).then(data => {
+            this.resetPassword().then(data => {
                 this.loading._ = false
                 if (data instanceof StarterServiceError) {
                     this.error.messages = data.messages
@@ -104,8 +97,8 @@ export default {
                     }
                 }
                 else {
-                    this.registerSetProgressing(true)
-                    this.$router.push({name: 'register.success'})
+                    this.resetPasswordSetProgressing(true)
+                    this.$router.push({name: 'password.reset.success'})
                 }
             })
         },

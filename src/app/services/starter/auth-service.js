@@ -17,4 +17,8 @@ export class AuthService extends StarterService
     forgotPassword(params) {
         return this.post('auth/forgot-password', params)
     }
+
+    resetPassword(params) {
+        return this.post('auth/reset-password', params)
+    }
 }

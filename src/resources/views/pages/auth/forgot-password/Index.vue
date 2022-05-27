@@ -1,6 +1,6 @@
 <template lang="pug">
-.forgotPassword
-    h1 Forgot password
+.forgot-password
+    h1 Forgot Password
     form(@submit.prevent="onSubmit")
         div
             input(v-model="email" type="email" name="email" placeholder="Email" required)
@@ -57,7 +57,14 @@ export default {
         }),
         onSubmit() {
             this.loading._ = true
-            this.forgotPassword().then(data => {
+            this.forgotPassword({
+                reset_url: this.$url.route({
+                    name: 'password.reset',
+                    params: {
+                        token: '{token}',
+                    },
+                }),
+            }).then(data => {
                 this.loading._ = false
                 if (data instanceof StarterServiceError) {
                     this.error.messages = data.messages
@@ -67,7 +74,7 @@ export default {
                 }
                 else {
                     this.forgotPasswordSetProgressing(true)
-                    this.$router.push({name: 'forgot_password_success'})
+                    this.$router.push({name: 'password.request.success'})
                 }
             })
         },

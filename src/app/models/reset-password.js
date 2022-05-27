@@ -1,10 +1,13 @@
 import {app} from '@/bootstrap/app'
 import {AuthService} from '@/app/services/starter/auth-service'
 
-export const forgotPassword = {
+export const resetPassword = {
     namespaced: true,
     state: () => ({
+        token: '',
         email: '',
+        password: '',
+        passwordConfirmation: '',
 
         progressing: false,
     }),
@@ -13,14 +16,20 @@ export const forgotPassword = {
             state.progressing = progressing
         },
         reset(state) {
+            state.token = ''
             state.email = ''
+            state.password = ''
+            state.passwordConfirmation = ''
         },
     },
     actions: {
-        forgotPassword(context, params = {}) {
-            return app.$service(AuthService).forgotPassword(Object.assign({
+        resetPassword(context) {
+            return app.$service(AuthService).resetPassword({
+                token: context.state.token,
                 email: context.state.email,
-            }, params))
+                password: context.state.password,
+                password_confirmation: context.state.passwordConfirmation,
+            })
         },
     },
     getters: {

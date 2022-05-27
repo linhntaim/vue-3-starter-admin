@@ -74,7 +74,7 @@ export const routes = [
                             },
                             {
                                 path: 'success',
-                                name: 'register_success',
+                                name: 'register.success',
                                 component: () => import('@/resources/views/pages/auth/register/Success'),
                             },
                         ],
@@ -85,13 +85,29 @@ export const routes = [
                         children: [
                             {
                                 path: '',
-                                name: 'forgot_password',
+                                name: 'password.request',
                                 component: () => import('@/resources/views/pages/auth/forgot-password/Index'),
                             },
                             {
                                 path: 'success',
-                                name: 'forgot_password_success',
+                                name: 'password.request.success',
                                 component: () => import('@/resources/views/pages/auth/forgot-password/Success'),
+                            },
+                        ],
+                    },
+                    {
+                        path: 'reset-password',
+                        component: () => import('@/resources/views/pages/auth/reset-password/Base'),
+                        children: [
+                            {
+                                path: ':token',
+                                name: 'password.reset',
+                                component: () => import('@/resources/views/pages/auth/reset-password/Index'),
+                            },
+                            {
+                                path: 'success',
+                                name: 'password.reset.success',
+                                component: () => import('@/resources/views/pages/auth/reset-password/Success'),
                             },
                         ],
                     },

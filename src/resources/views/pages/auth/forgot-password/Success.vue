@@ -1,6 +1,6 @@
 <template lang="pug">
-.forgotPassword
-    h1 Forgot password
+.forgot-password
+    h1 Forgot Password
     p Please check and follow instructions in the email of resetting password that has been sent to your inbox.
 </template>
 
@@ -17,7 +17,7 @@ export default {
     },
     created() {
         if (!this.forgotPasswordProgressing) {
-            this.$router.push({name: 'forgot_password'})
+            this.$router.push({name: 'password.request'})
         }
         this.forgotPasswordSetProgressing(false)
     },
