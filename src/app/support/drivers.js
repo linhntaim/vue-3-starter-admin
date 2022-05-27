@@ -1,15 +1,27 @@
 import {modify, str} from './helpers'
 
-export class Drivers {
-    constructor(app) {
+export class Drivers
+{
+    constructor(app, configKey, defaultDriver = null) {
         this.app = app
         this.config = app.config.globalProperties.$config
+        this.configKey = configKey
         this.drivers = {}
         this.extended = {}
+        this.withs = {}
+        this.defaultDriver = defaultDriver
+    }
+
+    getConfig(key, def = null) {
+        return this.config?.get(`${this.configKey}.${key}`, def) || def
+    }
+
+    options(driver) {
+        return this.getConfig(`drivers.${driver}`, {})
     }
 
     getDefaultDriver() {
-        return 'default'
+        return this.getConfig('default', this.defaultDriver)
     }
 
     extend(driver, callback) {
@@ -24,13 +36,37 @@ export class Drivers {
         return this
     }
 
+    with(driver, callback, key = 'default') {
+        if (!(driver in this.withs)) {
+            this.withs[driver] = {key: callback}
+        }
+        else {
+            this.withs[driver][key] = callback
+        }
+    }
+
+    without(driver, key = 'default') {
+        if (driver in this.withs) {
+            delete this.withs[driver][key]
+        }
+    }
+
     driver(driver = null) {
         if (driver == null) {
             driver = this.getDefaultDriver()
         }
-        return driver in this.drivers
-            ? this.drivers[driver]
-            : (this.drivers[driver] = this.createDriver(driver))
+        return modify(
+            driver in this.drivers
+                ? this.drivers[driver]
+                : (this.drivers[driver] = this.createDriver(driver)),
+            driverInstance => {
+                const withs = driver in this.withs ? this.withs[driver] : {}
+                Object.keys(withs).forEach(key => {
+                    driverInstance = withs[key](driverInstance)
+                })
+                return driverInstance
+            },
+        )
     }
 
     createDriver(driver) {

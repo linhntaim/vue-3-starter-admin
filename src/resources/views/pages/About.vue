@@ -1,6 +1,15 @@
 <template lang="pug">
 .about
     h1 This is an about page
+    p
+        small Say hello to&nbsp;
+        input(v-model="world" type="text")
+        template(v-if="locales.length > 1")
+            small &nbsp;in&nbsp;
+            select(v-model="locale")
+                option(v-for="value in locales" :key="value" :value="value")
+                    | {{ value }}
+    p {{ $t('hello', {world}) }}
 </template>
 
 <script>
@@ -9,6 +18,18 @@ import {app} from '@/bootstrap/app'
 export default {
     // eslint-disable-next-line
     name: 'About',
+    data() {
+        return {
+            world: 'World',
+            locale: this.$i18n.locale,
+            locales: this.$config.localization.locale.supported,
+        }
+    },
+    watch: {
+        locale() {
+            this.$setLocale(this.locale)
+        },
+    },
     beforeRouteEnter() { // cannot access `this`
         app.$log.info('page', 'about.beforeRouteEnter')
     },

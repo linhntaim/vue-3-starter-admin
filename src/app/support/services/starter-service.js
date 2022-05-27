@@ -16,7 +16,7 @@ export class StarterService extends Service {
         this.alwaysCallback = null
     }
 
-    driver() {
+    requestDriver() {
         return 'starter'
     }
 
@@ -84,7 +84,7 @@ export class StarterService extends Service {
 
     get(url, params = {}) {
         return this.response(
-            this.request.get(url, {
+            this.requester().get(url, {
                 params,
             }),
         )
@@ -92,7 +92,7 @@ export class StarterService extends Service {
 
     post(url, params = {}) {
         return this.response(
-            this.request.post(url, params),
+            this.requester().post(url, params),
         )
     }
 }

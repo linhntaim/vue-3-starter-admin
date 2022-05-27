@@ -8,8 +8,9 @@ export class MemoryStorage extends Storage
         this.data = {}
     }
 
-    putRaw(key, value, options = {}) {
-        this.data[key] = {value, options}
+    // eslint-disable-next-line no-unused-vars
+    putRaw(key, rawValue, options = {}) {
+        this.data[key] = rawValue
         return this
     }
 

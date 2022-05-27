@@ -1,12 +1,13 @@
 import {Drivers} from '../drivers'
 import axios from 'axios'
 
-export class RequestManager extends Drivers {
-    getDefaultDriver() {
-        return this.config?.get('services.request', 'starter')
+export class RequestManager extends Drivers
+{
+    constructor(app) {
+        super(app, 'services.request', 'starter')
     }
 
-    createDefaultDriver() {
-        return axios.create(this.config?.get('services.requests.starter'))
+    createStarter() {
+        return axios.create(this.options('starter'))
     }
 }

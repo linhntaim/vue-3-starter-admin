@@ -1,25 +1,49 @@
-import {Middleware} from '@/app/support/router'
 import {app} from '@/bootstrap/app'
-
-let fresh = true
+import {localization} from '@/config'
+import {Middleware} from '@/app/support/router'
+import {ServiceError} from '@/app/support/services'
 
 export class Fresh extends Middleware
 {
-    beforeEach(to, from, next) {
+    async beforeEach(to, from, next) {
+        const fresh = app.$start.isFresh()
+        app.$start.continue()
         if (fresh) {
-            this.restoreFromCache()
-            this.restoreFromCookie()
+            if (!(await this.restoreFromServer(to, from, next))) {
+                return
+            }
+            await this.restoreFromCache()
+            await this.restoreFromCookie()
         }
-        fresh = false
         next()
     }
 
-    restoreFromCache() {
-        app.$log.info('middleware', 'fresh.restoreFromCache')
-        app.$store.commit('ping/setFromCache')
+    async restoreFromServer(to, from, next) {
+        if (!app.$config.get('app.static')) {
+            const data = await app.$store.dispatch('prerequisite/require', ['server'])
+            app.$log.info('middleware', 'fresh.restoreFromServer', data)
+            if (data instanceof ServiceError) {
+                app.$start.reset()
+                const connectionLostRoute = app.$config.app.routes.connection_lost
+                if (to.name !== connectionLostRoute.name) {
+                    next(connectionLostRoute)
+                    return false
+                }
+            }
+        }
+        return true
     }
 
-    restoreFromCookie() {
+    async restoreFromCache() {
+        app.$log.info('middleware', 'fresh.restoreFromCache')
+        //
+    }
+
+    async restoreFromCookie() {
         app.$log.info('middleware', 'fresh.restoreFromCookie')
+        // locale
+        await app.$setLocale(await app.$cookie.get('locale', localization.locale.default))
+        // account
+        await app.$store.dispatch('account/restoreFromCookie')
     }
 }

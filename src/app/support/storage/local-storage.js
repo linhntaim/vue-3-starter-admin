@@ -2,14 +2,15 @@ import {Storage} from './storage'
 
 export class LocalStorage extends Storage
 {
-    constructor(encryptor) {
-        super(encryptor)
+    constructor(encryptor, options = {}) {
+        super(encryptor, options)
 
         this.handler = window.localStorage
     }
 
-    putRaw(key, value, options = {}) {
-        this.handler.setItem(key, JSON.stringify({value, options}))
+    // eslint-disable-next-line no-unused-vars
+    putRaw(key, rawValue, options = {}) {
+        this.handler.setItem(key, rawValue)
         return this
     }
 
@@ -18,7 +19,7 @@ export class LocalStorage extends Storage
     }
 
     getRaw(key) {
-        return JSON.parse(this.handler.getItem(key))
+        return this.handler.getItem(key)
     }
 
     remove(key) {
