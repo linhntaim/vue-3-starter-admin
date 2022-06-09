@@ -20,7 +20,7 @@ export class Fresh extends Middleware
 
     async restoreFromServer(to, from, next) {
         if (!app.$config.get('app.static')) {
-            const data = await app.$store.dispatch('prerequisite/require', ['server'])
+            const data = await app.$store.dispatch('prerequisite/require', ['server']).catch(err => err)
             app.$log.debug('middleware', 'fresh.restoreFromServer', data)
             if (data instanceof ServiceError) {
                 app.$start.reset()

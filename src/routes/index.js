@@ -14,6 +14,11 @@ export const routes = [
         },
         children: [
             {
+                path: 'clear-site-data',
+                name: 'clear_site_data',
+                component: () => import('@/resources/views/pages/ClearSiteData'),
+            },
+            {
                 path: 'error',
                 component: BaseError,
                 children: [
@@ -32,23 +37,8 @@ export const routes = [
                         name: 'not_found',
                         component: () => import('@/resources/views/errors/NotFound'),
                     },
+                    //
                 ],
-            },
-            {
-                path: 'clear-site-data',
-                name: 'clear_site_data',
-                component: () => import('@/resources/views/pages/ClearSiteData'),
-            },
-            //
-            {
-                path: '/',
-                name: 'root',
-                component: () => import('@/resources/views/pages/Home'),
-            },
-            {
-                path: 'about',
-                name: 'about',
-                component: () => import('@/resources/views/pages/About'),
             },
             {
                 path: 'auth',
@@ -111,10 +101,23 @@ export const routes = [
                             },
                         ],
                     },
+                    //
                 ],
             },
             {
-                path: '',
+                path: '/',
+                name: 'root',
+                component: () => import('@/resources/views/pages/Home'),
+            },
+            //
+            {
+                path: 'about',
+                name: 'about',
+                component: () => import('@/resources/views/pages/About'),
+            },
+            //
+            {
+                path: '/',
                 component: BaseBlank,
                 meta: {
                     requiresAuth: true,
@@ -126,9 +129,9 @@ export const routes = [
                         name: 'account',
                         component: () => import('@/resources/views/pages/me/Account'),
                     },
+                    //
                 ],
             },
-            //
             {
                 path: ':pathMatch(.*)*',
                 component: () => import('@/resources/views/errors/NotFound'),

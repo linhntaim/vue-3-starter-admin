@@ -30,9 +30,9 @@ export const account = {
                 type: state.token.type,
                 accessToken: state.token.accessToken,
                 expiredAt: state.token.expiredAt,
-            }, {
+            }, state.token.expiredAt ? {
                 expired: state.token.expiredAt * 1000,
-            })
+            } : {})
         },
         setAccount(state, account) {
             state.account = account
@@ -56,13 +56,13 @@ export const account = {
         async restoreFromCookie(context) {
             const token = await app.$cookie.get('model.account.token')
             app.$log.debug('model', 'account.restoreFromCookie', token)
-            if (token && token.type && token.accessToken && token.expiredAt) {
+            if (token && token.type && token.accessToken) {
                 context.commit('setToken', {
                     type: token.type,
                     accessToken: token.accessToken,
                     expiredAt: token.expiredAt,
                 })
-                await context.dispatch('current')
+                await context.dispatch('current').catch(err => app.$log.debug('model', 'cannot retrieve user', err))
             }
             if (!context.getters.isLoggedIn) {
                 context.commit('unset')

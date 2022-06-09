@@ -1,9 +1,12 @@
 <template lang="pug">
-.register
+.login
     h1 Login
     form(@submit.prevent="onSubmit")
         div
             input(v-model="email" type="email" name="email" placeholder="Email" required)
+        template(v-if="error.validation.email")
+            div(v-for="message in error.validation.email")
+                small {{ message }}
         div
             input(v-model="password" type="password" name="password" placeholder="Password" autocomplete="off" required)
         button(:disabled="loading._" type="submit") Submit
@@ -23,6 +26,11 @@ export default {
 
             email: '',
             password: '',
+
+            error: {
+                messages: [],
+                validation: {},
+            },
         }
     },
     computed: {
@@ -39,13 +47,16 @@ export default {
             this.accountLogin({
                 email: this.email,
                 password: this.password,
-            }).then(data => {
+            }).then(() => {
                 this.loading._ = false
                 if (this.accountIsLoggedIn) {
                     this.$router.push({name: 'root'})
                 }
-                else {
-                    console.log(data)
+            }).catch(err => {
+                this.loading._ = false
+                this.error.messages = err.messages
+                if (err.data && 'validation' in err.data) {
+                    this.error.validation = err.data.validation
                 }
             })
         },

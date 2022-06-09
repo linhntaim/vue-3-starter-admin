@@ -2,6 +2,7 @@ import {Service} from './service'
 import {take} from '../helpers'
 import {AxiosError} from 'axios'
 import {StarterServiceError} from './starter-service-error'
+import {ServiceError} from '@/app/support/services/service-error'
 
 /**
  * @property {AxiosInstance} request
@@ -61,6 +62,9 @@ export class StarterService extends Service
             })
             .then(response => {
                 alwaysCallback && alwaysCallback(response)
+                if (response instanceof ServiceError) {
+                    throw response
+                }
                 return response
             })
     }
@@ -94,6 +98,12 @@ export class StarterService extends Service
     post(url, params = {}) {
         return this.response(
             this.requester().post(url, params),
+        )
+    }
+
+    delete(url, params = {}) {
+        return this.response(
+            this.requester().delete(url, {data: params}),
         )
     }
 }
