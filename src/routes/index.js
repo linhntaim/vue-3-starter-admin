@@ -134,7 +134,7 @@ export const routes = [
             },
             {
                 path: ':pathMatch(.*)*',
-                component: () => import('@/resources/views/errors/NotFound'),
+                component: () => import('@/resources/views/pages/Welcome'),
             },
         ],
     },
