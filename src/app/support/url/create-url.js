@@ -1,4 +1,4 @@
-import {UrlGenerator} from '@/app/support/url/url-generator'
+import {UrlGenerator} from './url-generator'
 
 export function createUrl() {
     return {

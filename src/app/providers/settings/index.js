@@ -14,21 +14,20 @@ export const i18n = localeHandler.createI18Provider({
 export const localization = {
     install(app) {
         settings
-            .setLocaleApply(async (locale, changed) => {
+            .setLocaleApply((locale, changed) => {
                 if (changed) {
                     document.querySelector('html').setAttribute('lang', locale)
                     app.config.globalProperties.$request.with('starter', axios => {
                         axios.defaults.headers.common['Accept-Language'] = locale
                         return axios
                     }, 'header.accept-language')
-                    await app.config.globalProperties.$cookie.put('locale', locale)
-                    app.config.globalProperties.$log.info('locale', 'applied', locale)
+                    app.config.globalProperties.$log.debug('locale', 'applied', locale)
                 }
                 else {
-                    app.config.globalProperties.$log.info('locale', 'no need to apply')
+                    app.config.globalProperties.$log.debug('locale', 'no need to apply')
                 }
             })
-            .setCommonApply((settings, changes) => {
+            .setCommonApply(async (settings, changes) => {
                 if (Object.keys(changes).some(key => changes[key])) {
                     app.config.globalProperties.$request.with('starter', axios => {
                         axios.defaults.headers.common['X-Settings'] = (() => {
@@ -38,15 +37,21 @@ export const localization = {
                         })()
                         return axios
                     }, 'header.x-settings')
-                    app.config.globalProperties.$log.info('settings', 'applied', settings)
+                    await app.config.globalProperties.$cookie.put('settings', (() => {
+                        const values = {}
+                        Object.keys(settings).forEach(key => settings[key] && (values[key] = settings[key]))
+                        return values
+                    })())
+                    app.config.globalProperties.$log.debug('settings', 'applied', settings)
                 }
                 else {
-                    app.config.globalProperties.$log.info('settings', 'no need to apply')
+                    app.config.globalProperties.$log.debug('settings', 'no need to apply')
                 }
             })
 
+        app.config.globalProperties.$settings = settings
         app.config.globalProperties.$setLocale = locale => {
-            app.config.globalProperties.$log.info('locale', 'applying', locale)
+            app.config.globalProperties.$log.debug('locale', 'applying', locale)
             return settings.setLocale(locale).apply()
         }
     },

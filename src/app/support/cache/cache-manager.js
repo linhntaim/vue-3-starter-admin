@@ -1,5 +1,5 @@
 import {Drivers} from '../drivers'
-import {StorageCache} from '@/app/support/cache/storage-cache'
+import {StorageCache} from './storage-cache'
 
 export class CacheManager extends Drivers
 {

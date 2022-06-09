@@ -1,6 +1,7 @@
 import {Maker} from './maker'
 
-export class Factory extends Maker {
+export class Factory extends Maker
+{
     constructor(app) {
         super(app)
 

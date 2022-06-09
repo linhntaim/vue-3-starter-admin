@@ -55,7 +55,7 @@ export const account = {
     actions: {
         async restoreFromCookie(context) {
             const token = await app.$cookie.get('model.account.token')
-            app.$log.info('model', 'account.restoreFromCookie', token)
+            app.$log.debug('model', 'account.restoreFromCookie', token)
             if (token && token.type && token.accessToken && token.expiredAt) {
                 context.commit('setToken', {
                     type: token.type,

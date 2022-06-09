@@ -1,5 +1,5 @@
-import {Encryptor} from '@/app/support/encryption/encryptor'
-import {EncryptService, ServiceError} from '@/app/support/services'
+import {Encryptor} from './encryptor'
+import {EncryptService, ServiceError} from '../services'
 
 export class StarterEncryptor extends Encryptor
 {

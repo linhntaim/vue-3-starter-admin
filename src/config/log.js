@@ -1,6 +1,8 @@
 export const log = {
     default: 'console',
     drivers: {
-        console: {},
+        console: {
+            level: process.env.VUE_APP_LOG_LEVEL,
+        },
     },
 }

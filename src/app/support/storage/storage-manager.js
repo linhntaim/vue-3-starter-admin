@@ -1,6 +1,6 @@
 import {Drivers} from '../drivers'
 import {LocalStorage} from './local-storage'
-import {CookieStorage} from '@/app/support/storage/cookie-storage'
+import {CookieStorage} from './cookie-storage'
 
 export class StorageManager extends Drivers
 {

@@ -1,4 +1,5 @@
-export class Middleware {
+export class Middleware
+{
     beforeEach(to, from, next) {
         next()
     }

@@ -5,7 +5,7 @@
         div
             input(v-model="email" type="email" name="email" placeholder="Email" required)
         div
-            input(v-model="password" type="password" name="password" placeholder="Password" required)
+            input(v-model="password" type="password" name="password" placeholder="Password" autocomplete="off" required)
         button(:disabled="loading._" type="submit") Submit
 </template>
 
@@ -52,7 +52,3 @@ export default {
     },
 }
 </script>
-
-<style scoped lang="sass">
-
-</style>

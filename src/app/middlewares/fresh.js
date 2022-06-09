@@ -21,7 +21,7 @@ export class Fresh extends Middleware
     async restoreFromServer(to, from, next) {
         if (!app.$config.get('app.static')) {
             const data = await app.$store.dispatch('prerequisite/require', ['server'])
-            app.$log.info('middleware', 'fresh.restoreFromServer', data)
+            app.$log.debug('middleware', 'fresh.restoreFromServer', data)
             if (data instanceof ServiceError) {
                 app.$start.reset()
                 const connectionLostRoute = app.$config.app.routes.connection_lost
@@ -35,14 +35,18 @@ export class Fresh extends Middleware
     }
 
     async restoreFromCache() {
-        app.$log.info('middleware', 'fresh.restoreFromCache')
+        app.$log.debug('middleware', 'fresh.restoreFromCache')
         //
     }
 
     async restoreFromCookie() {
-        app.$log.info('middleware', 'fresh.restoreFromCookie')
-        // locale
-        await app.$setLocale(await app.$cookie.get('locale', localization.locale.default))
+        app.$log.debug('middleware', 'fresh.restoreFromCookie')
+        // settings
+        await app.$settings
+            .set(await app.$cookie.get('settings', {
+                locale: localization.locale.default,
+            }))
+            .apply()
         // account
         await app.$store.dispatch('account/restoreFromCookie')
     }

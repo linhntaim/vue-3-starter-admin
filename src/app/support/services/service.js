@@ -1,6 +1,7 @@
 import {Maker} from '../maker'
 
-export class Service extends Maker {
+export class Service extends Maker
+{
     constructor(app) {
         super(app)
 

@@ -13,12 +13,12 @@
             div(v-for="message in error.validation.email")
                 small {{ message }}
         div
-            input(v-model="password" type="password" name="password" placeholder="Password" required)
+            input(v-model="password" type="password" name="password" placeholder="Password" autocomplete="off" required)
         template(v-if="error.validation.password")
             div(v-for="message in error.validation.password")
                 small {{ message }}
         div
-            input(v-model="passwordConfirmation" type="password" name="password_confirmation" placeholder="Password Confirmation" required)
+            input(v-model="passwordConfirmation" type="password" name="password_confirmation" placeholder="Password Confirmation" autocomplete="off" required)
         button(:disabled="loading._" type="submit") Submit
 </template>
 

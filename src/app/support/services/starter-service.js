@@ -6,7 +6,8 @@ import {StarterServiceError} from './starter-service-error'
 /**
  * @property {AxiosInstance} request
  */
-export class StarterService extends Service {
+export class StarterService extends Service
+{
     constructor(app) {
         super(app)
 

@@ -1,4 +1,5 @@
-export class Middlewares {
+export class Middlewares
+{
     constructor() {
         this.middlewares = []
     }
