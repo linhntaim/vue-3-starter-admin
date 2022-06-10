@@ -3,7 +3,8 @@ import {Auth} from '@/app/middlewares/auth'
 import {Guest} from '@/app/middlewares/guest'
 import Base from '@/resources/views/master/Base'
 import BaseError from '@/resources/views/master/BaseError'
-import BaseBlank from '@/resources/views/master/BaseBlank'
+import BaseAuth from '@/resources/views/master/BaseAuth'
+import BaseAdmin from '@/resources/views/master/BaseAdmin'
 
 export const routes = [
     {
@@ -42,7 +43,7 @@ export const routes = [
             },
             {
                 path: 'auth',
-                component: BaseBlank,
+                component: BaseAuth,
                 meta: {
                     requiresGuest: true,
                     middleware: [Guest],
@@ -107,18 +108,13 @@ export const routes = [
             {
                 path: '/',
                 name: 'root',
-                component: () => import('@/resources/views/pages/Home'),
+                redirect: {name: 'dashboard'},
             },
             //
-            {
-                path: 'about',
-                name: 'about',
-                component: () => import('@/resources/views/pages/About'),
-            },
             //
             {
                 path: '/',
-                component: BaseBlank,
+                component: BaseAdmin,
                 meta: {
                     requiresAuth: true,
                     middleware: [Auth],
@@ -130,6 +126,11 @@ export const routes = [
                         component: () => import('@/resources/views/pages/me/Account'),
                     },
                     //
+                    {
+                        path: 'dashboard',
+                        name: 'dashboard',
+                        component: () => import('@/resources/views/pages/Home'),
+                    },
                 ],
             },
             {
