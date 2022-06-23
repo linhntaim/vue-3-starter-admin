@@ -1,4 +1,4 @@
-import {Factory} from './factories'
+import {Factory} from './factory'
 
 export class Singleton extends Factory
 {
