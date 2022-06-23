@@ -50,7 +50,6 @@ export const localization = {
                 })
             return settings
         })
-
         registerPropertyFactory(app.config.globalProperties, '$setLocale', function (props) {
             return locale => {
                 props.$log.debug('locale', 'applying', locale)

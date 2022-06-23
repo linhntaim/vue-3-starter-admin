@@ -3,8 +3,10 @@ import {registerPropertyFactory, time} from '@/app/support/helpers'
 export function createStart(vueStart) {
     return {
         install(app) {
-            registerPropertyFactory(app.config.globalProperties, '$start', function () {
-                return {
+            registerPropertyFactory(
+                app.config.globalProperties,
+                '$start',
+                () => ({
                     fresh: 0,
                     freshStart: vueStart,
                     isFresh() {
@@ -17,8 +19,8 @@ export function createStart(vueStart) {
                     reset() {
                         this.fresh = 0
                     },
-                }
-            })
+                }),
+            )
         },
     }
 }
