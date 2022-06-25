@@ -1,4 +1,5 @@
 import {trim} from 'locutus/php/strings'
+import {env} from './env'
 
 export const services = {
     request: {
@@ -6,7 +7,7 @@ export const services = {
         drivers: {
             starter: {
                 baseURL: (() => {
-                    let serviceUrl = process.env.VUE_APP_STARTER_SERVICE_URL || (window.location.origin + '/api')
+                    let serviceUrl = env.VUE_APP_STARTER_SERVICE_URL || (window.location.origin + '/api')
                     if (/^https?:\/\//.test(serviceUrl)) {
                         return serviceUrl
                     }
@@ -15,7 +16,7 @@ export const services = {
                 })(),
                 headers: (() => {
                     const headers = {}
-                    headers['X-Client'] = process.env.VUE_APP_STARTER_SERVICE_CLIENT || 'default'
+                    headers['X-Client'] = env.VUE_APP_STARTER_SERVICE_CLIENT || 'default'
                     return headers
                 })(),
             },
