@@ -18,11 +18,11 @@ export class Fresh extends Middleware
     }
 
     async restoreFromServer(to, from, next) {
-        const data = await app.$store.dispatch('prerequisite/require', ['server']).catch(err => err)
-        app.$log.debug('middleware', 'fresh.restoreFromServer', data)
+        const data = await this.app.$store.dispatch('prerequisite/require', ['server']).catch(err => err)
+        this.app.$log.debug('middleware', 'fresh.restoreFromServer', data)
         if (data instanceof ServiceError) {
-            app.$start.reset()
-            const connectionLostRoute = app.$config.app.routes.connection_lost
+            this.app.$start.reset()
+            const connectionLostRoute = this.app.$config.app.routes.connection_lost
             if (to.name !== connectionLostRoute.name) {
                 next(connectionLostRoute)
                 return false
@@ -45,6 +45,6 @@ export class Fresh extends Middleware
             }))
             .apply()
         // account
-        await app.$store.dispatch('account/restoreFromCookie')
+        await this.app.$store.dispatch('account/restoreFromCookie')
     }
 }
