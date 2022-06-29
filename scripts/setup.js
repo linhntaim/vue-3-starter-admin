@@ -4,7 +4,7 @@ if (!fs.existsSync('./.env')) {
     fs.copyFileSync('./.env.example', './.env')
 }
 
-const publicVendorPath = './public/vendor'
+const publicVendorPath = './public/vendors'
 const vendors = {
     './node_modules/bootstrap/dist': `${publicVendorPath}/bootstrap/dist`,
     './node_modules/bootstrap-icons/font': `${publicVendorPath}/bootstrap-icons/font`,

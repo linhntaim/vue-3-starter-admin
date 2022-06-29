@@ -1,13 +1,13 @@
+import {Singleton} from './singleton'
 import {registerPropertyFactory} from '@/app/support/helpers'
-import {UrlGenerator} from './url-generator'
 
-export function createUrl() {
+export function createFactory() {
     return {
         install(app) {
             registerPropertyFactory(
                 app.config.globalProperties,
-                '$url',
-                () => new UrlGenerator(app._instance.proxy),
+                '$singleton',
+                () => new Singleton(app._instance.proxy),
             )
         },
     }
