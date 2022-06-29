@@ -10,8 +10,8 @@ export class StorageManager extends Drivers
 
     encryptor(encryptorDriver) {
         return encryptorDriver
-            ? this.app.config.globalProperties.$encryption.driver(encryptorDriver)
-            : this.app.config.globalProperties.$encryptor
+            ? this.app.$encryption.driver(encryptorDriver)
+            : this.app.$encryptor
     }
 
     createLocal() {
