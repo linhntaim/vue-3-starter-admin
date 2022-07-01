@@ -1,11 +1,11 @@
 <template lang="pug">
-main
-    .auth-container
-        .auth-header
+main.center-main
+    .center-container
+        .center-header
             h1 Administration
-        .auth-body
+        .center-body
             router-view
-        .auth-footer
+        .center-footer
             .text-muted &copy; {{ year }} {{ appName }}
 </template>
 
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-main {
+.center-main {
     position: absolute;
     display: flex;
     align-items: center;
@@ -31,7 +31,7 @@ main {
     text-align: center;
 }
 
-.auth-container {
+.center-container {
     max-width: 24rem;
     width: 100%;
     margin-left: auto;
@@ -39,11 +39,11 @@ main {
     padding: 1rem;
 }
 
-.auth-header {
+.center-header {
     margin-bottom: 1.5rem;
 }
 
-.auth-footer {
+.center-footer {
     margin-top: 3rem;
 }
 </style>

@@ -1,9 +1,16 @@
 <template lang="pug">
-h1 Clear site data
-p Including session storage, local storage and cookies.
-button(type="button" @click="onClearClick") Clear
-pre(v-if="logs.length")
-    code {{ lines }}
+main.center-main
+    .center-container
+        .center-header
+            h1 Administration
+        .center-body
+            h4.fw-light.text-nowrap.text-danger Clear site data
+            p.mt-4 Including session storage, local storage and cookies.
+            button.btn.btn-danger(type="button" @click="onClearClick") Clear
+            pre.mt-3(v-if="logs.length")
+                code {{ lines }}
+        .center-footer
+            .text-muted &copy; {{ year }} {{ appName }}
 </template>
 
 <script>
@@ -12,6 +19,9 @@ export default {
     data() {
         return {
             logs: [],
+
+            appName: this.$config.app.name,
+            year: new Date().getFullYear(),
         }
     },
     computed: {
@@ -49,3 +59,29 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.center-main {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.center-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+}
+
+.center-header {
+    margin-bottom: 1.5rem;
+}
+
+.center-footer {
+    margin-top: 3rem;
+}
+</style>

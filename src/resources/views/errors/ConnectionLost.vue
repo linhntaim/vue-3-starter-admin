@@ -1,8 +1,8 @@
 <template lang="pug">
 .internal-server-error
-    h1 503 - Service Unavailable
-    p Connection to server has been lost.
-    button(type="button" @click="onRefreshClick") Refresh
+    h4.fw-light.text-nowrap.text-danger 503 - Service Unavailable
+    p.mt-4 Connection to server has been lost.
+    button.btn.btn-primary(type="button" @click="onRefreshClick") Refresh
 </template>
 
 <script>

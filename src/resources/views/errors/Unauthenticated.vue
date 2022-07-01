@@ -1,8 +1,8 @@
 <template lang="pug">
 .unauthenticated
-    h1 401 - Unauthenticated
-    p
-        router-link(:to="{name: 'login'}") Go to Login
+    h4.fw-light.text-nowrap.text-danger 401 - Unauthenticated
+    p.mt-4
+        router-link.btn.btn-primary(:to="{name: 'login'}") Go to Login
 </template>
 
 <script>

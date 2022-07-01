@@ -5,6 +5,7 @@ import Base from '@/resources/views/master/Base'
 import BaseError from '@/resources/views/master/BaseError'
 import BaseAuth from '@/resources/views/master/BaseAuth'
 import BaseAdmin from '@/resources/views/master/BaseAdmin'
+import BaseBlank from '@/resources/views/master/BaseBlank'
 
 export const routes = [
     {
@@ -121,6 +122,11 @@ export const routes = [
                 },
                 children: [
                     {
+                        path: 'auth/logout',
+                        name: 'logout',
+                        component: () => import(/* webpackChunkName: "view-auth-logout" */ '@/resources/views/pages/auth/Logout'),
+                    },
+                    {
                         path: 'account',
                         name: 'account',
                         component: () => import(/* webpackChunkName: "view-me-account" */ '@/resources/views/pages/me/Account'),
@@ -129,7 +135,24 @@ export const routes = [
                     {
                         path: 'dashboard',
                         name: 'dashboard',
-                        component: () => import(/* webpackChunkName: "view-dashboard" */ '@/resources/views/pages/Home'),
+                        component: () => import(/* webpackChunkName: "view-dashboard" */ '@/resources/views/pages/dashboard/Index'),
+                    },
+                    //
+                    {
+                        path: 'user',
+                        component: BaseBlank,
+                        children: [
+                            {
+                                path: '',
+                                name: 'user_index',
+                                component: () => import(/* webpackChunkName: "view-user-index" */ '@/resources/views/pages/user/Index'),
+                            },
+                            {
+                                path: 'create',
+                                name: 'user_create',
+                                component: () => import(/* webpackChunkName: "view-user-create" */ '@/resources/views/pages/user/Create'),
+                            },
+                        ],
                     },
                 ],
             },

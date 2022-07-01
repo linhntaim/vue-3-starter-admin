@@ -1,6 +1,6 @@
 <template lang="pug">
 .not-found
-    h1 404 - Not found
+    h4.fw-light.text-nowrap.text-danger 404 - Not found
 </template>
 
 <script>
