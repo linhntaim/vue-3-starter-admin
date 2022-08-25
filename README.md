@@ -1,8 +1,8 @@
-# vue3
+# vue-3-starter-admin
 
 ## Project setup
 ```
-npm install
+npm install && npm run setup
 ```
 
 ### Compiles and hot-reloads for development
