@@ -8,10 +8,10 @@
                 br
         .form-floating
             input#inputEmail.form-control(v-model="email" type="email" name="email" placeholder="Email" required)
-            label(for="inputEmail") Email address
+            label.text-start(for="inputEmail") Email address
         .form-floating
             input#inputPassword.form-control(v-model="password" type="password" name="password" placeholder="Password" autocomplete="off" required)
-            label(for="inputPassword") Password
+            label.text-start(for="inputPassword") Password
         button.btn.btn-primary.btn-lg.w-100(:disabled="loading._" type="submit") Sign in
 </template>
 

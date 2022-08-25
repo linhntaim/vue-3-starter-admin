@@ -28,5 +28,8 @@ export const app = {
         login: {
             name: 'login',
         },
+        logout: {
+            name: 'logout',
+        },
     },
 }

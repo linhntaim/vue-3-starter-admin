@@ -75,7 +75,6 @@ import {mapGetters, mapMutations} from 'vuex'
 export default {
     name: 'BaseAdmin',
     data() {
-        console.log(this.$config)
         return {
             appName: this.$config.app.name,
             year: new Date().getFullYear(),
@@ -173,7 +172,7 @@ export default {
         },
         onLogoutClick() {
             this.accountActivateLogout()
-            this.$router.push({name: 'logout'})
+            this.$router.push(this.$config.app.routes.logout)
         },
     },
 }
@@ -276,6 +275,7 @@ $sidebar-width: 18rem;
         }
 
         &.active {
+            color: white;
             opacity: 1;
             font-weight: bold;
         }

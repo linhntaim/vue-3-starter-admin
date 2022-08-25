@@ -13,6 +13,9 @@ const vendors = {
     './node_modules/@fortawesome/fontawesome-free/webfonts': `${publicVendorPath}/fontawesome-free/webfonts`,
 }
 Object.keys(vendors).forEach(source => {
+    if (!fs.existsSync(source)) {
+        return
+    }
     const destination = vendors[source]
     if (!fs.existsSync(destination)) {
         fs.mkdirSync(destination, {recursive: true})
