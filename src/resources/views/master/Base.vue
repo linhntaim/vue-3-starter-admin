@@ -10,7 +10,7 @@ nav
         a(@click.prevent="onLogoutClick" href="#") Logout
     template(v-else)
         | &nbsp;|&nbsp;
-        router-link(:to="{name: 'login'}") Login
+        router-link(:to="loginRoute") Login
         | &nbsp;|&nbsp;
         router-link(:to="{name: 'register'}") Register
         | &nbsp;|&nbsp;
@@ -19,22 +19,28 @@ router-view
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
     // eslint-disable-next-line
     name: 'Base',
+    data() {
+        return {
+            loginRoute: this.$config.app.routes.login,
+        }
+    },
     computed: {
         ...mapGetters({
             accountIsLoggedIn: 'account/isLoggedIn',
         }),
     },
     methods: {
-        ...mapActions({
-            accountLogout: 'account/sanctumLogout',
+        ...mapMutations({
+            accountActivateLogout: 'account/activateLogout',
         }),
         onLogoutClick() {
-            this.accountLogout().then(() => this.$router.push({name: 'root'}))
+            this.accountActivateLogout()
+            this.$router.push(this.$config.app.routes.logout)
         },
     },
 }
